@@ -1,0 +1,42 @@
+---
+ 
+ - hosts: all
+   become: true
+   tasks:
+   - name: install updates (CentOS)
+     dnf:
+       update_only: yes
+       update_cache: yes
+     when: ansible_distribution == "CentOS"
+ 
+   - name: install updates (Ubuntu)
+     apt:
+       upgrade: dist
+       update_cache: yes
+     when: ansible_distribution == "Ubuntu"
+
+ - hosts: all
+   become: true
+   tasks:
+   - name: create simone user
+     tags: always
+     user:  
+      user: simon
+      groups: root
+
+   - name: add ssh keys for simone
+     tags: always
+     authorized_key:
+       user: simon
+       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIzxKFvwsTHsacUrnzv6tvqZSkyf4sek23z+s7Xi6hQt ansible"
+        
+   - name: add sudoers file for simone
+     copy:
+       src: sudoers_simon
+       dest: /etc/sudoers.d/simone
+       owner: root
+       group: root
+       mode: 0440  
+
+
+
