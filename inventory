@@ -1,3 +1,8 @@
-[all]
-192.168.89.130 apache_package=httpd php_package=php
-192.168.89.131 apache_package=httpd php_package=php
+[web_servers]
+192.168.89.130
+
+[file_server]
+192.168.89.131
+
+[workstations]
+192.168.89.131 
