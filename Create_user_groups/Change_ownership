@@ -1,0 +1,6 @@
+- name : Change File ownership, group and permissions
+  ansible.builtin.file :
+     Path: /etc/.ssh/authorized 
+     owner: root
+     group: root
+     mode: '0755'
